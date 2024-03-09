@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -9,55 +8,15 @@
   <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 <head>
-    <script>
-AFRAME.registerComponent('clock-text', {
-    init: function () {
-        this.ready = false;
-        this.totalTimeRemaining = 0;
-        this.markerFoundOnce = false; // Flag to track if marker has been found before
-        this.TargetTime = 0;
-        this.el.sceneEl.addEventListener('markerFound', () => {
-            if (!this.markerFoundOnce) { // Check if marker found for the first time
-                console.log('Marker found. Timer started.');
-                this.ready = true;
-                this.TargetTime = new Date().getTime() + 10 * 60 * 1000; // 10 minutes from now
-                this.totalTimeRemaining = 10 * 60 * 1000; // 10 minutes in milliseconds
-                this.markerFoundOnce = true; // Update flag
-            }
-        });
-    },
-    tick: function () {
-        if (!this.ready) {
-            return;
-        }
-        var timeRem;
-        if (this.totalTimeRemaining > 0) {
-            var hours = Math.floor(this.totalTimeRemaining / (1000 * 60 * 60));
-            var mins = Math.floor((this.totalTimeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            var secs = Math.floor((this.totalTimeRemaining % (1000 * 60)) / 1000);
-            timeRem = hours + " hrs " + mins + " mins " + secs + " secs ";
-        } else {
-            timeRem = "Finally! The day has come.";
-        }
-        this.el.setAttribute('value', timeRem);
-        this.totalTimeRemaining = this.TargetTime - new Date().getTime(); // Update remaining time
-    },
-    pause: function () {
-        this.ready = false;
-    }
-});
-
-
-    </script>
-
+<script src="timer.js"></script>
 <script src="speech.js"></script>
 </head>
 
 <body style="margin: 0px; overflow: hidden;">
-    <button class="button">YOUR BUTTON</button>
-    <a-scene embedded arjs>
+    <button class="button" onclick="buttonclick()">YOUR BUTTON</button>
+    <a-scene embedded arjs vr-mode-ui="enabled:false">
         <a-marker preset='hiro'>
-            <a-plane id="#background-timer" scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
+            <a-plane scale="2 1" position="0 0.1 0" rotation="-90 0 0">
                 <a-text id="timer" clock-text value="00:00:00" width="1.5" height="1" position="-0.451 0.041 0.000"
                     color="#000000" z-offset="0.1"></a-text>
             </a-plane>
