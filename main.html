@@ -2,6 +2,7 @@
 <html>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
@@ -53,7 +54,7 @@ AFRAME.registerComponent('clock-text', {
 <body style="margin: 0px; overflow: hidden;">
     <a-scene embedded arjs>
         <a-marker preset='hiro'>
-            <a-plane scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
+            <a-plane id="#background-timer" scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
                 <a-text id="timer" clock-text value="00:00:00" width="1.5" height="1" position="-0.451 0.041 0.000"
                     color="#000000" z-offset="0.1"></a-text>
             </a-plane>
