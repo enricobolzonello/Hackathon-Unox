@@ -9,16 +9,20 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 <head>
     <script>
-       AFRAME.registerComponent('clock-text', {
+AFRAME.registerComponent('clock-text', {
     init: function () {
         this.ready = false;
         this.totalTimeRemaining = 0;
+        this.markerFoundOnce = false; // Flag to track if marker has been found before
         this.TargetTime = 0;
         this.el.sceneEl.addEventListener('markerFound', () => {
-            console.log('Marker found. Timer started.');
-            this.ready = true;
-            this.TargetTime = new Date().getTime() + 10 * 60 * 1000; // 10 minutes from now
-            this.totalTimeRemaining = 10 * 60 * 1000; // 10 minutes in milliseconds
+            if (!this.markerFoundOnce) { // Check if marker found for the first time
+                console.log('Marker found. Timer started.');
+                this.ready = true;
+                this.TargetTime = new Date().getTime() + 10 * 60 * 1000; // 10 minutes from now
+                this.totalTimeRemaining = 10 * 60 * 1000; // 10 minutes in milliseconds
+                this.markerFoundOnce = true; // Update flag
+            }
         });
     },
     tick: function () {
@@ -42,6 +46,7 @@
     }
 });
 
+
     </script>
 </head>
 
@@ -50,7 +55,7 @@
         <a-marker preset='hiro'>
             <a-plane scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
                 <a-text id="timer" clock-text value="00:00:00" width="1.5" height="1" position="-0.451 0.041 0.000"
-                    color="#000000"></a-text>
+                    color="#000000" z-offset="0.1"></a-text>
             </a-plane>
         </a-marker>
         <a-entity camera></a-entity>
