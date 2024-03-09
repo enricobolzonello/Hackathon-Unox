@@ -4,11 +4,12 @@ AFRAME.registerComponent('clock-text', {
         TimeOutTime : {type:'int', default:10 }
     },
     init: function() {
-        console.log('Timer init entered');
-        this.ready = true;
-        /*el.addEventListener('textfontset', function() {
-            this.ready = true;
-        }.bind(this)); */ 
+        this.el.sceneEl.addEventListener('markerFound', () => {
+            console.log('Timer init entered');
+            el.addEventListener('textfontset', function() {
+                this.ready = true;
+            }.bind(this));
+          })   
     },
     TimeLeft: function(){
         let currentDate = new Date();
