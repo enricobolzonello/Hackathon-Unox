@@ -49,9 +49,12 @@ AFRAME.registerComponent('clock-text', {
 
 
     </script>
+
+<script src="speech.js"></script>
 </head>
 
 <body style="margin: 0px; overflow: hidden;">
+    <button class="button">YOUR BUTTON</button>
     <a-scene embedded arjs>
         <a-marker preset='hiro'>
             <a-plane id="#background-timer" scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">

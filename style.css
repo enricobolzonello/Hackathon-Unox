@@ -6,3 +6,16 @@
 #timer{
     color: "#edf6f9";
 }
+
+.button {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: calc(50% - 300px);
+    left: calc(50% - 50px);
+    background-color: magenta;
+    z-index: 9999;
+    line-height: 100px;
+    text-align: center;
+    color: white;
+  }
