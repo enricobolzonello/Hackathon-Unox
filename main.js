@@ -5,13 +5,10 @@ AFRAME.registerComponent('clock-text', {
     },
     init: function() {
         console.log('Timer init entered');
-        var el = this.el;
-        this.ready = false;
-        el.addEventListener('textfontset', function() {
+        this.ready = true;
+        /*el.addEventListener('textfontset', function() {
             this.ready = true;
-        }.bind(this));
-
-        this.TargetTime=new Date(date.getTime() + this.data.TimeOutTime*1000); //calulate the target time
+        }.bind(this)); */ 
     },
     TimeLeft: function(){
         let currentDate = new Date();
@@ -21,7 +18,6 @@ AFRAME.registerComponent('clock-text', {
         console.log(`time remaining: ${this.totalTimeRemaining}`);
 
         if(this.totalTimeRemaining >= 0){
-            var days = Math.floor(this.totalTimeRemaining / (1000 * 60 * 60 * 24));
                 this.hours = Math.floor((this.totalTimeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 this.mins = Math.floor((this.totalTimeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                 this.secs = Math.floor((this.totalTimeRemaining % (1000 * 60)) / 1000);
@@ -31,7 +27,7 @@ AFRAME.registerComponent('clock-text', {
         alert("TIME UP");
     },
     tick: function() {
-          var el = this.el;
+        var el = this.el;
         if (!this.ready) {
             return;
         }
@@ -50,10 +46,13 @@ AFRAME.registerComponent('clock-text', {
         this.ready=true;
     },
     play: function () {
-        if(this.ready)
+
+        this.TargetTime=new Date(date.getTime() + this.data.TimeOutTime*1000); //calulate the target time
+        this.ready = false;
+        /*if(this.ready)
         {
             this.TargetTime = new Date(new Date().getTime() + this.totalTimeRemaining); //calcute the new target time 
         }
-        this.ready=false;
+        this.ready=false;*/
     }
 });
