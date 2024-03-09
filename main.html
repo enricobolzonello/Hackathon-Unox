@@ -5,22 +5,25 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
   <script>AFRAME.registerComponent('clock-text', {
+                schema: {
+                    timer: {type: 'int', default: 20}
+                },
                 init: function() {
-		    console.log('Timer init entered');
+                    console.log('Timer init entered');
                     var el = this.el;
                     this.ready = false;
-		    el.addEventListener('textfontset', function() {
-    	            	this.ready = true;
-		    }.bind(this));
+                    el.addEventListener('textfontset', function() {
+                        this.ready = true;
+                    }.bind(this));
                 },
                 tick: function() {
-  	        	var el = this.el;
+  	        	    var el = this.el;
                     if (!this.ready) {
     	                return;
                     }
 
-                    var endTime = new Date("May 29, 2024 00:54:00").getTime();
-                    var timeRem;
+                    var endTime = new Date();
+                    endTime.setSeconds(endTime.getSeconds() + this.data.timer);
 
                     var timer = setInterval(function() {
                         var currTime = new Date().getTime();
@@ -28,12 +31,11 @@
                         var diff = endTime - currTime;
 
                         if(diff > 0) {
-                            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
                             var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                             var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                             var secs = Math.floor((diff % (1000 * 60)) / 1000);
                             //console.log(days, hours, mins, secs);
-                            var timeRem = days + " days " + hours + " hrs " + mins + " mins " + secs + " secs ";
+                            var timeRem = hours + " hrs " + mins + " mins " + secs + " secs ";
                             //console.log(timeRem);
                         } else {
                             var timeRem = "Finally! The day has come.";
@@ -60,7 +62,7 @@
                 <!--<a-plane scale = "4 2" position='0 0.1 0' rotation="-90 0 0" material='transparent:true;src:#invitation' controls></a-plane>-->
                 <!--<a-entity text="font: https://cdn.aframe.io/fonts/mozillavr.fnt; value: Fun Moments"></a-entity>-->
 
-                <a-plane scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
+                <a-plane scale="1 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
                     <a-text id="timer" clock-text value="00:00:00:00" width="1.5" height="1" position="-0.451 0.041 0.000" color="#000000"></a-text>
                 </a-plane>
 
