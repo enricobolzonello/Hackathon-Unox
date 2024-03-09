@@ -7,15 +7,18 @@
     color: "#edf6f9";
 }
 
+
+.mic{
+    position: fixed; /* Fixed positioning so it stays in the viewport */
+    bottom: 0; /* Position at the bottom of the viewport */
+    left: 50%; /* Position in the horizontal center */
+    transform: translateX(-50%) scale(0.3); /* Translate back by 50% of the image width to center it, and scale down by a factor of 2 */
+}
+
 .button {
-    width: 200px;
-    height: 100px;
-    position: absolute;
-    top: calc(50% - 300px);
-    left: calc(50% - 50px);
-    background-color: magenta;
-    z-index: 9999;
-    line-height: 100px;
-    text-align: center;
-    color: white;
+    position: fixed; /* Fixed positioning so it stays in the viewport */
+    bottom: 0; /* Position at the bottom of the viewport */
+    left: 50%; /* Position in the horizontal center */
+    transform: translateX(-50%) scale(0.3); /* Translate back by 50% of the image width to center it, and scale down by a factor of 2 */
+    z-index: 9998;
   }

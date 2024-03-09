@@ -50,3 +50,4 @@ function buttonclick(){
         diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
       }
 }
+
