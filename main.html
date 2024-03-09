@@ -7,31 +7,55 @@
   <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
   <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<head>
+    <script>
+       AFRAME.registerComponent('clock-text', {
+    init: function () {
+        this.ready = false;
+        this.totalTimeRemaining = 0;
+        this.TargetTime = 0;
+        this.el.sceneEl.addEventListener('markerFound', () => {
+            console.log('Marker found. Timer started.');
+            this.ready = true;
+            this.TargetTime = new Date().getTime() + 10 * 60 * 1000; // 10 minutes from now
+            this.totalTimeRemaining = 10 * 60 * 1000; // 10 minutes in milliseconds
+        });
+    },
+    tick: function () {
+        if (!this.ready) {
+            return;
+        }
+        var timeRem;
+        if (this.totalTimeRemaining > 0) {
+            var hours = Math.floor(this.totalTimeRemaining / (1000 * 60 * 60));
+            var mins = Math.floor((this.totalTimeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var secs = Math.floor((this.totalTimeRemaining % (1000 * 60)) / 1000);
+            timeRem = hours + " hrs " + mins + " mins " + secs + " secs ";
+        } else {
+            timeRem = "Finally! The day has come.";
+        }
+        this.el.setAttribute('value', timeRem);
+        this.totalTimeRemaining = this.TargetTime - new Date().getTime(); // Update remaining time
+    },
+    pause: function () {
+        this.ready = false;
+    }
+});
 
-  <script src="/main.js"></script>
-  <body style="margin : 0px; overflow: hidden;">
+    </script>
+</head>
+
+<body style="margin: 0px; overflow: hidden;">
     <a-scene embedded arjs>
-      <!--<a-marker preset="hiro">
-        <!-- we use cors proxy to avoid cross-origin problems 
-        <a-entity
-          position="0 0 0"
-          scale="0.05 0.05 0.05"
-          gltf-model="https://web-production-aa50.up.railway.app/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-        ></a-entity>
-        
-      </a-marker>-->
-
-            <a-marker preset='hiro'>
-                <!--<a-box position='0 0 0' material='color: red;'></a-box>-->
-                <!--<a-plane scale = "4 2" position='0 0.1 0' rotation="-90 0 0" material='transparent:true;src:#invitation' controls></a-plane>-->
-                <!--<a-entity text="font: https://cdn.aframe.io/fonts/mozillavr.fnt; value: Fun Moments"></a-entity>-->
-
-                <a-plane scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
-                    <a-text id="timer" value="00:00:00" width="1.5" height="1" position="-0.451 0.041 0.000" color="#000000"></a-text>
-                </a-plane>     
-            </a-marker>
-      <a-entity camera></a-entity>
+        <a-marker preset='hiro'>
+            <a-plane scale="2 1" position="0 0.1 0" rotation="-90 0 0" src="#texture">
+                <a-text id="timer" clock-text value="00:00:00" width="1.5" height="1" position="-0.451 0.041 0.000"
+                    color="#000000"></a-text>
+            </a-plane>
+        </a-marker>
+        <a-entity camera></a-entity>
     </a-scene>
-  </body>
+</body>
+
 </html>
 
