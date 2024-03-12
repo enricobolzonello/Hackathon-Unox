@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="stylesGG.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
@@ -14,19 +14,19 @@
 <body style="margin: 0px; overflow: hidden;">
 
 
-    <img src="microphone.png" alt="Button Image" class="button" onclick="buttonclick()">
+    <img src="images/microphone.png" class="button" onclick="buttonclick()">
+
+    <button class="button-2" onclick="setReceivedCommand()">submit</button>
 
     <a-scene embedded arjs vr-mode-ui="enabled:false">
         <a-marker preset='hiro'>
-            <a-plane scale="2 1" position="0 0.1 0" rotation="-90 0 0">
-                <a-text id="timer" clock-text value="00:00:00" width="1.5" height="1" position="-0.451 0.041 0.000"
+            <a-plane hight="0.5" width="5" position="0 0.1 0" rotation="-90 0 0">
+                <a-text id="timer" clock-text value="00:00:00" width="10.5" height="10" align="center"
                     color="#000000" z-offset="0.1"></a-text>
             </a-plane>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
-    <script src="speech.js"></script>
-
     <script src="speech.js"></script>
 </body>
 
